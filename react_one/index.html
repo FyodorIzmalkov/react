@@ -41,6 +41,45 @@
             margin: 10px 0 0 0;
             display: block;
         }
+
+        .test-input {
+            margin: 0 px 5px 5px 0;
+        }
+
+        .add {
+            margin: 0 5px 5px 0;
+            width: 210px;
+            border: 1px dashed rgba(0, 89, 181, 0.82);
+            padding: 5px;
+        }
+
+        .add__author,
+        .add__text,
+        .add__btn,
+        .add__checkrule {
+            display: block;
+            margin: 0 0 5px 0;
+            padding: 5px;
+            width: 94%;
+            border: 1px solid rgba(0, 89, 181, 0.82);
+        }
+
+        .add__checkrule {
+            border: none;
+            font-size: 12px;
+        }
+
+        .add__btn {
+            box-sizing: content-box;
+            color: #FFF;
+            text-transform: uppercase;
+            background: #007DDC;
+        }
+
+        .add__btn:disabled {
+            background: #CCC;
+            color: #999;
+        }
     </style>
 
 </head>
@@ -76,16 +115,76 @@
             }
         ];
 
+        class Add extends React.Component {
+            state = {
+                author: '',
+                text: '',
+                agree: false,
+                bigText: '',
+            }
+
+            authorHandler = (e) => {
+                e.preventDefault();
+                this.setState({author: e.currentTarget.value});
+            }
+
+            textHandler = (e) => {
+                e.preventDefault();
+                this.setState({text: e.currentTarget.value});
+            }
+
+            onBtnClickHandler = (e) => {
+                e.preventDefault();
+                // alert(this.state.author + '\n' + this.state.text);
+                const { author, text, bigText } = this.state;
+                const id = +new Date();
+                this.props.onAddNews({author, text, bigText, id});
+            }
+
+            handleCHeckBox = (e) => {
+                const { author, text } = this.state;
+
+                e.preventDefault();
+                console.log(this.state.agree);
+                this.setState({agree: e.currentTarget.checked});
+            }
+
+            changeHandler = (e) => {
+                const {id, value} = e.currentTarget;
+                this.setState({[id]: value});
+            }
+
+            validate = () => {
+                const {agree, author, text} = this.state;
+                if (!agree && author.trim() != '' && text.trim() != ''){
+                    return false;
+                }
+                return true;
+            }
+
+            render() {
+                return (
+                    <form className='add'>
+                        <input id='author' value={this.state.author} onChange={this.changeHandler} className='add__author' placeholder='author' />
+                        <textarea id='text' value={this.state.text} onChange={this.changeHandler} className='add__text' placeholder='News Text'></textarea>
+                        <textarea id='bigText' value={this.state.bigText} onChange={this.changeHandler} className='add__text' placeholder='Big Text part'/>
+
+                        <label className='add__checkrule'>
+                            <input onChange={this.handleCHeckBox} type='checkbox'/>I agree with rules
+                        </label>
+                        <button disabled={this.validate()} className='add__btn' onClick={this.onBtnClickHandler}>Show alert</button>
+                    </form>
+                )
+            }
+        }
+
         class Article extends React.Component {
             state = {
                 visible: false
             }
 
-            handleReadMoreClck = (e) => {
-                e.preventDefault()
-                this.setState({visible: true}, () => {
-                    alert('Состояние изменилось');
-                });
+            handleReadMoreClck = () => {
+                this.setState({visible: true});
             }
 
             render() {
@@ -98,8 +197,8 @@
                         <p className="news__author">{author}:</p>
                         <p className="news__text">{text}</p>
                         {
-                            !visible && <a onClick={this.handleReadMoreClck} 
-                            href="#" className="news__readmore">Подробнее</a>
+                            !visible && <a onClick={this.handleReadMoreClck}
+                                href="#" className="news__readmore">Подробнее</a>
                         }
                         {
                             visible && <p className="news__big-text">{bigText}</p>
@@ -112,11 +211,11 @@
         class News extends React.Component {
 
             state = {
-                counter : 0
+                counter: 0
             }
 
             handleIncrementClck = () => {
-                this.setState({counter: ++this.state.counter})
+                this.setState({ counter: ++this.state.counter })
             }
 
             renderNews = () => {
@@ -143,8 +242,8 @@
                     <div className="news">
                         {this.renderNews()}
                         {
-                            data.length ? 
-                            <strong onClick={this.handleIncrementClck} className={'news__count'}>Всего новостей: {data.length}</strong> : null
+                            data.length ?
+                                <strong onClick={this.handleIncrementClck} className={'news__count'}>Всего новостей: {data.length}</strong> : null
                         }
                         <p>Всего кликов: {counter}</p>
                     </div>
@@ -156,13 +255,27 @@
             data: PropTypes.array.isRequired
         }
 
-        const App = () => {
-            return (
+        class App extends React.Component {
+            state = {
+                news: myNews,
+            }
+
+            handleAddNews = (data) => {
+                console.log('CALLED FROM ADD,but I can add to this.state of APP', this.state);
+                const nextNews = [data, ...this.state.news];
+                this.setState({news: nextNews});
+            }
+
+            render () {
+                return (
                 <React.Fragment>
+                    <Add onAddNews={this.handleAddNews}/>
                     <h3>Новости</h3>
-                    <News data={myNews} />
+                    <News data={this.state.news} />
                 </React.Fragment>
-            )
+                );
+            }
+
         }
 
         ReactDOM.render(<App />,
