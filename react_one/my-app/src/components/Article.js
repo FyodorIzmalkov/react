@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 class Article extends React.Component {
     state = {
@@ -31,13 +30,4 @@ class Article extends React.Component {
     }
   }
 
-  Article.PropTypes = {
-      data: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          author: PropTypes.string.isRequired,
-          text: PropTypes.string.isRequired,
-          bigText: PropTypes.string.isRequired,
-      }),
-  }
-
-  export { Article }
+export { Article }
