@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import {User} from './../components/User';
 import {Page} from '../components/Page';
 import { connect } from 'react-redux';
+import {getPhotos} from '../actions/PageActions';
 
 class App extends React.Component{
   render(){
-    const {page, user} = this.props;
+    const {page, user, getPhotosAction} = this.props;
   return (
     <div className="App">
-      <header className="App-header">
-        <h1 className="App-title">Мой топ фото</h1>
+      <header>
+        <h1>Мой топ фото</h1>
       </header>
       <User name={user.name}/>
-      <Page photos={page.photos} year={page.year}/>
+      <Page photos={page.photos}
+       isFetching={page.isFetching}
+       year={page.year} getPhotos={getPhotosAction}/>
     </div>
   )
   }
@@ -27,4 +30,10 @@ const mapStateToProps = store => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    getPhotosAction: year => dispatch(getPhotos(year)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
