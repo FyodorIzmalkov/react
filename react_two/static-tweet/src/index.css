@@ -56,3 +56,34 @@ line-height: 18px;
   margin-left: 6px;
   font-weight: bold;
 }
+
+.sender {
+  font-weight: bold;
+  border:solid black 0.5px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.envelope {
+  border: solid black 1px;
+  height: 500px;
+}
+
+.fromPerson {
+  position:absolute;
+  top: 2%;
+  left: 2%;
+}
+
+.toPerson {
+  position: absolute;
+  left: 40%;
+  top: 20%;
+}
+
+.postStamp {
+  height: 170px;
+  width: 250px;
+  position: absolute;
+  right: 1%;
+}

@@ -186,4 +186,40 @@ const MoreOptionsButton = () => (
     <i className="fa fa-ellipsis-h more-options-button"/>
 )
 
-ReactDOM.render(<Tweet tweet={testTweet}/>, document.getElementById('root'));
+const senders = {
+    fromPerson :{
+        fullName: "HARRY POTTER",
+        street: "123 Fake St.",
+        city: "Boston, MA 02118"
+    },
+    toPerson :{
+        fullName: "ALEXANDER BASHER",
+        street: "222 BAKER ST.",
+        city: "LONDON, SMTH 228",
+    }
+}
+
+const AddressLabel = ({person}) => (
+    <div className="sender">
+        <p>{person.fullName}</p>
+        <p>{person.street}</p>
+        <p>{person.city}</p>
+    </div>
+)
+
+const Envelope = ({toPerson, fromPerson}) => (
+<div className="envelope">
+    <div className="fromPerson">
+        <AddressLabel person={fromPerson}/>
+    </div>
+    <div className="toPerson">
+        <AddressLabel person={toPerson}/>
+    </div>
+    <div>
+        <img src="https://www.linns.com/images/default-source/news/canada-post-2020-rate-change-flag-stamp.jpg?sfvrsn=a7c736d1_4" className="postStamp"></img>
+    </div>
+</div>
+)
+
+// ReactDOM.render(<Tweet tweet={testTweet}/>, document.getElementById('root'));
+ReactDOM.render(<Envelope toPerson={senders.toPerson} fromPerson={senders.fromPerson}/>, document.getElementById('root'));
