@@ -87,3 +87,86 @@ line-height: 18px;
   position: absolute;
   right: 1%;
 }
+
+.creditCard{
+  width: 300px;
+  height: 200px;
+  background-color: rgb(72, 72, 255);
+  border-radius: 15px;
+}
+
+.bankName{
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  top: 15px;
+  left: 150px;
+}
+
+.cardNumber{
+  color:white;
+  font-size: 25px;
+  font-weight: bold;
+  position:relative;
+  top: 70px;
+  left: 40px;
+}
+
+.fourNumbers{
+  color:white;
+  font-size: 13px;
+  position:relative;
+  top: 70px;
+  left: 40px;
+}
+
+.expirationDate{
+  color:white;
+  font-weight: bold;
+}
+
+.valid {
+  position: relative;
+  top: 70px;
+  left: 100px;
+  font-size: 10px;
+}
+
+.date{
+  position: absolute;
+  top: 142px;
+  left: 145px;
+  font-size: 25px;
+}
+
+.cardHolderName{
+  position: relative;
+  color: white;
+  font-weight: bold;
+  top: 85px;
+  left: 15px;
+}
+
+.posterImage{
+  width: 80%;
+  height: 80%;
+}
+
+.posterTitle{
+  color:bisque;
+  position: absolute;
+  font-weight: bold;
+  font-size: 35px;
+  top: 45%;
+  left: 36%;
+}
+
+.posterText{
+  color:white;
+  position: absolute;
+  font-weight: bold;
+  font-size: 25px;
+  top: 50%;
+  left: 26%;
+}

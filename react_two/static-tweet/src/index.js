@@ -221,5 +221,72 @@ const Envelope = ({toPerson, fromPerson}) => (
 </div>
 )
 
+const cardInfo = {
+    personsName: "CARDHOLDER NAME",
+    expirationDate: "12/20",
+    cardNumber: "1234  5678  8765  4321",
+    bankName: "Big Bank, Inc.",
+}
+
+const ExpirationDate = ({expirationDate}) => (
+    <div className="expirationDate">
+        <div className="valid">
+            <div>VALID</div>
+            <div>THRU</div>
+        </div>
+        <div className="date">{expirationDate}</div>
+    </div>
+)
+
+const CreditCard = ({cardInfo}) => (
+        <div className="creditCard">
+            <div className="bankName">{cardInfo.bankName}</div>
+            <div className="cardNumber">{cardInfo.cardNumber}</div>
+            <div className="fourNumbers">1234</div>
+            <ExpirationDate expirationDate={cardInfo.expirationDate}/>
+            <div className="cardHolderName">{cardInfo.personsName}</div>
+        </div>
+    )
+
+    const image = "https://reactjs.org/logo-og.png";
+    const title = "REACT";
+    const text = "the best thing since jQuery, probably.";
+
+const Poster = ({image,title,text}) => (
+    <div>
+        <img className="posterImage" src={image}/>
+        <div className="posterTitle">{title}</div>
+        <div className="posterText">{text}</div>
+    </div>
+)
+
+function ErrorBox({ children }) {
+    return (
+        <div>
+            {children}
+        </div>
+    )
+}
+
+function Nav({children}) {
+    let items = React.Children.toArray(children);
+    for (let i = items.length - 1; i >= 1; i--){
+        items.splice(i , 0, 
+            <span key={i} className='separator'>|</span>);
+    }
+    return (
+        <div>{items}</div>
+    )
+}
+
+const NavItem = ({url, children}) => (
+    <a href={url + children}>{url + children}</a>
+)
+
+
 // ReactDOM.render(<Tweet tweet={testTweet}/>, document.getElementById('root'));
-ReactDOM.render(<Envelope toPerson={senders.toPerson} fromPerson={senders.fromPerson}/>, document.getElementById('root'));
+ReactDOM.render(<Nav>
+    <NavItem url='/'>Home</NavItem>
+    <NavItem url='/about'>About</NavItem>
+    <NavItem url='/contact'>Contact</NavItem>
+    </Nav>, document.getElementById('root'));
