@@ -130,8 +130,78 @@ const PhoneFeatures = ({ data }) => (
         </table>
 )
 
+function handleAction(event){
+    console.log('Child event:', event);
+}
+
+function Parent(){
+    return (
+        <Child onAction={handleAction}/>
+    );
+}
+
+const Child = ({onAction, reset}) => (
+    <div>
+    <button onClick={onAction}>
+        Click ME!
+    </button>
+    <button onClick={reset}>
+        RESET
+    </button>
+    </div>
+);
+
+class CountingParent extends React.Component {
+    state = {
+        actionCount: 0,
+    }
+
+    handleAction = (action) => {
+        console.log('Child says:', action);
+        this.setState({actionCount: this.state.actionCount+1});
+    }
+
+    resetButton = () => {
+        this.setState({actionCount: 0})
+    }
+
+    render(){
+        return (
+            <div>
+                <Child onAction={this.handleAction} reset={this.resetButton}/>
+                <p>Clicked {this.state.actionCount} times</p>
+            </div>
+        );
+    }
+}
+
+class ControlledInput extends React.Component {
+    state = { text: ''};
+
+    handleChange = (event) => {
+        let text = event.target.value;
+        text = text.replace(/[0-9]/g, '');
+        this.setState({
+            text
+        });
+    };
+
+    render(){
+        return (
+            <input type="text"
+            value={this.state.text}
+            onChange={this.handleChange}/>
+        )
+    }
+}
+
+const EasyInput = () => (
+    <input type="text"/>
+)
+
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-ReactDOM.render(<PhoneFeatures data={data} />, document.getElementById('root'));
+ReactDOM.render(<EasyInput />, document.getElementById('root'));
