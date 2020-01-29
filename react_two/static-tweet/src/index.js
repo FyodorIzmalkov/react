@@ -285,8 +285,4 @@ const NavItem = ({url, children}) => (
 
 
 // ReactDOM.render(<Tweet tweet={testTweet}/>, document.getElementById('root'));
-ReactDOM.render(<Nav>
-    <NavItem url='/'>Home</NavItem>
-    <NavItem url='/about'>About</NavItem>
-    <NavItem url='/contact'>Contact</NavItem>
-    </Nav>, document.getElementById('root'));
+ReactDOM.render(<Tweet tweet={testTweet}/>, document.getElementById('root'));

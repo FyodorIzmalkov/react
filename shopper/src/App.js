@@ -33,7 +33,9 @@ class App extends React.Component {
       cart: [
         ...this.state.cart.slice(0, index),
         ...this.state.cart.slice(index + 1),
-      ]
+      ],
+      totalCount: this.state.totalCount - 1,
+      totalSum: Math.round(this.state.totalSum - item.price),
     });
   }
 

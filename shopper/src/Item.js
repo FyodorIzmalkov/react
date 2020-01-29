@@ -4,7 +4,7 @@ import './Item.css';
 const Item = ({item, onAddToCart, children}) => (
     <div className="Item">
         <div className="Item-left">
-        <div className="Item-image"/>
+        <img className="Item-image" src={item.url}/>
         <div className="Item-title">{item.name}</div>
         <div className="Item-description">
             {item.description}

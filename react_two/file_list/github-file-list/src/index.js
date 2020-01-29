@@ -204,4 +204,4 @@ const EasyInput = () => (
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-ReactDOM.render(<EasyInput />, document.getElementById('root'));
+ReactDOM.render(<FileList files={testFiles} />, document.getElementById('root'));
